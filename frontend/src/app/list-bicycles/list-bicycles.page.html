@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Bicycle List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let b of bicycles">
+      <ion-avatar slot="start">
+        <img *ngIf="b.filename" src="http://localhost:8080/images/{{b.filename}}" alt="image"/>
+      </ion-avatar>
+      <ion-label>
+        <h1>{{b.brand}}</h1>
+        <p>{{b.model}}</p>
+      </ion-label>
+      <ion-button color="primary" (click)="presentPopover($event)">Update</ion-button>
+      <ion-button color="danger" (click)="deleteBicycle(b.id)">Delete</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <!-- PopUp -->
+  <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Update brand</ion-label>
+            <ion-input placeholder="update brand" id="newBrand" name="newBrand"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Update model</ion-label>
+            <ion-input placeholder="update model" id="newModel" name="newModel"></ion-input>
+          </ion-item>
+
+          <!-- Photo Options -->
+          <p>&nbsp;&nbsp;&nbsp;Update photo options:</p>
+
+          <form formGroup="bicycleForm" (ngSubmit)="updateBicycle(b.id)" >
+            <ion-row class="ion-align-items-center">
+              <ion-col size="3">
+                <ion-img class="photo-frame" *ngIf="capturedPhoto" [src]="capturedPhoto" (click)="takePhoto()"></ion-img>
+                <ion-img class="photo-frame" *ngIf="!capturedPhoto" src="../../assets/No-Image-Placeholder.svg"
+                  (click)="takePhoto()"></ion-img>
+              </ion-col>
+              <ion-col size="9">
+                <ion-button color="primary" fill="outline" (click)="takePhoto()">
+                  <ion-icon slot="start" name="camera-outline"></ion-icon>
+                  Take a photo
+                </ion-button>
+                <ion-button color="primary" fill="outline" (click)="pickImage()">
+                  <ion-icon slot="start" name="image-outline"></ion-icon>
+                  Pick an image
+                </ion-button>
+                <ion-button color="danger" fill="outline" (click)="discardImage()">
+                  <ion-icon slot="start" name="aperture"></ion-icon>
+                  Discard image
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </form>
+
+          <ion-button expand="full" color="primary" (click)="updateBicycle(b.id)">Update</ion-button>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addBicycle()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
