@@ -49,3 +49,7 @@ All you need is... some time and...
 
 * https://gist.github.com/PurpleBooth/109311bb0361f32d87a2. A very complete template for README.md files.
 * https://ionicframework.com/docs/angular/your-first-app. Ionic Start App Tutorial
+
+#PostMaN
+
+* PostMan Url: [my PostMan Url](https://documenter.getpostman.com/view/29846283/2s9YRCVqjV)
